@@ -1,19 +1,27 @@
 import type { Route } from "./+types/catalog";
 import { allProducts } from "~/api/apiProducts";
 import Product from './../components/product';
+import { queryClient } from "~/queryClient";
+import { useQuery } from "@tanstack/react-query";
 
 export async function clientLoader({
   params,
 }: Route.ClientLoaderArgs) {
-  return allProducts();
+  // I use it to make sure I have the data I need before the component is showed
+  const catalog = await queryClient.ensureQueryData({
+      queryKey: ["detail"],
+      queryFn: () => allProducts(),
+      staleTime: Infinity,
+    });
+    return catalog
 }
 
 export default function Catalog({loaderData}: Route.ComponentProps) {
-  const products = loaderData.map((product) => {
-    // If it does a re-render it children shouldn't to re-render, the object is in cache, so is always the same
-    // and is using a React.memo, so if the parent do a re-render, it shouldn't
+  const catalog = loaderData;
+  let products: any = [];
+  products = catalog.map((product) => {
     return <Product product={product} key={product.id}/>
-  })
+  });
   return (
     <section>
       {products}
