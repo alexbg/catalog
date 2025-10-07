@@ -7,15 +7,19 @@ interface Props {
 }
 
 export default memo(function Product({product}: Props) {
-  const {title, price, image, id} = product
+  const {title, price, image, id, rate} = product;
+
   return (
-    <article>
+    <article className='card'>
       <header>
         <h2><NavLink to={`detail/${id}`}>{title}</NavLink></h2>
-        <img src={image} alt={title}/>
       </header>
+      <section>
+        <img src={image} alt={title} width={'256px'} height={'auto'}/>
+      </section>
       <footer>
-        {price}
+        <span>{price} $</span>
+        <span>Rate: {rate}</span>
       </footer>
     </article>
   );

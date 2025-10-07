@@ -29,7 +29,7 @@ export async function allProducts(): Promise<Product[]> {
   });
 }
 
-export function oneProduct(id: string) {
+export function oneProduct(id: string): Promise<Product> {
   return fetch(`${apiSettings.baseUrl}/products/${id}`).then((data) => {
     if (!data) throw Error('Product not found');
     return data.json();

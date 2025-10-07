@@ -1,44 +1,33 @@
 import {
   isRouteErrorResponse,
-  Links,
-  // Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
   useLoaderData,
+  useNavigation,
 } from "react-router";
 
 import type { Route } from "./+types/root";
-import "./app.css";
+import './styles/index.sass';
 import { QueryClientProvider, HydrationBoundary } from "@tanstack/react-query";
 import { queryClient } from "./queryClient";
 
-export const links: Route.LinksFunction = () => [
-  { rel: "preconnect", href: "https://fonts.googleapis.com" },
-  {
-    rel: "preconnect",
-    href: "https://fonts.gstatic.com",
-    crossOrigin: "anonymous",
-  },
-  {
-    rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
-  },
-];
-
 export function Layout({ children }: { children: React.ReactNode }) {
+  const navigation = useNavigation();
+  const isPending = navigation.state !== "idle";
   return (
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        {/* <Meta /> */}
-        <Links />
       </head>
       <body>
-        {children}
-        <ScrollRestoration />
-        <Scripts />
+        {isPending && <HydrateFallback />}
+        <main>
+          {children}
+          <ScrollRestoration />
+          <Scripts />
+        </main>
       </body>
     </html>
   );
@@ -54,7 +43,25 @@ export default function App() {
 }
 
 export function HydrateFallback() {
-  return <>LOADING...</>;
+  return (
+    <section
+      style={{
+        position: 'fixed',
+        width: '100%',
+        height: '100%',
+        left: 0,
+        top: 0,
+        backgroundColor: '#001c33',
+        color: 'white'
+      }}
+    ><span style={{
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translateX(-50%)'
+    }}>LOADING...</span>
+    </section>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
