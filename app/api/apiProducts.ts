@@ -1,4 +1,4 @@
-import factoryProduct from '~/factory/productsFactory';
+import factoryProduct, { type Product } from '~/factory/productsFactory';
 import apiSettings from './settingsApi';
 
 export interface apiProduct {
@@ -14,7 +14,7 @@ export interface apiProduct {
   title: string;
 }
 
-export async function allProducts() {
+export async function allProducts(): Promise<Product[]> {
   return fetch(`${apiSettings.baseUrl}/products`).then((data) => {
     if (!data) throw Error('Products not found');
     return data.json();
