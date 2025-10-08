@@ -19,7 +19,7 @@ export default memo(function Product({product}: Props) {
         <h2><NavLink to={`detail/${id}`}>{title}</NavLink></h2>
       </header>
       <section>
-        <img src={image} alt={title} width={'256px'} height={'auto'}/>
+        <img className='image' src={image} alt={title}/>
       </section>
       <footer>
         <span>{price} $</span>
