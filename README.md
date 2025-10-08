@@ -7,7 +7,7 @@
 1. `npm run dev`
 2. Go to http://localhost:5173/
 
-# Technologies used
+# Used Technologies
 **React Router**
 I have used React Router in Framework mode because it give the features like navigate between pages, split code (lazy), Loading pages, etc
 
