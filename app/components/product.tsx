@@ -6,6 +6,10 @@ interface Props {
   product: Product
 }
 
+/**
+ * It is to show the product in the catalog page
+ * It is a memo component, so it shouldn't re-render if the props are the same
+ */
 export default memo(function Product({product}: Props) {
   const {title, price, image, id, rate} = product;
 

@@ -4,6 +4,11 @@ import { NavLink } from "react-router";
 import { queryClient } from "~/queryClient";
 import PlaceHolderImage from "~/components/placeholderImage";
 
+/**
+ * It load the information product and return it. It get it from a fetch or the cache
+ * @param id
+ * @returns Product
+ */
 export async function clientLoader({ params }: Route.ClientLoaderArgs) {
   const product = await queryClient.ensureQueryData({
     queryKey: ["detail", params.id],
@@ -13,7 +18,12 @@ export async function clientLoader({ params }: Route.ClientLoaderArgs) {
   return product;
 }
 
-
+/**
+ * It is the Component Detail 
+ * @url detail/:id
+ * @param id
+ * @returns 
+ */
 export default function Detail({ loaderData }: Route.ComponentProps) {
   const { title, description, image, price, category, rate } = loaderData;
   return (

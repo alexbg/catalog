@@ -5,6 +5,13 @@ interface PlaceHolderImage {
   alt: string;
 }
 
+/**
+ * It component show a placeholder while the image is loading
+ * It use the css property display to hide or show the image and the placeholder
+ * @param url string
+ * @param alt string
+ * @returns 
+ */
 export default function PlaceHolderImage({url, alt}: PlaceHolderImage) {
   const [loaded, setLoaded] = useState(false);
   console.log(url);

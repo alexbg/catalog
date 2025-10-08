@@ -3,6 +3,10 @@ import { allProducts } from "~/api/apiProducts";
 import Product from './../components/product';
 import { queryClient } from "~/queryClient";
 
+/**
+ * It load all the products and return them. It get it from a fetch or the cache
+ * @returns Array Product
+ */
 export async function clientLoader({
   params,
 }: Route.ClientLoaderArgs) {

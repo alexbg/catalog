@@ -14,6 +14,10 @@ export interface apiProduct {
   title: string;
 }
 
+/**
+ * It do a fetch to get all the products and transform it by factoryProduct
+ * @returns Array Products
+ */
 export async function allProducts(): Promise<Product[]> {
   return fetch(`${apiSettings.baseUrl}/products`).then((data) => {
     if (!data) throw Error('Products not found');
@@ -29,6 +33,11 @@ export async function allProducts(): Promise<Product[]> {
   });
 }
 
+/**
+ * It do a fetch to get one product by its id and transform it by factoryProduct
+ * @param id string
+ * @returns Product
+ */
 export function oneProduct(id: string): Promise<Product> {
   return fetch(`${apiSettings.baseUrl}/products/${id}`).then((data) => {
     if (!data) throw Error('Product not found');

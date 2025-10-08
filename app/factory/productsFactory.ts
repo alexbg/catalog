@@ -11,6 +11,11 @@ export interface Product {
   title: string;
 }
 
+/**
+ * Transform the structure apiProduct into Product
+ * @param product
+ * @returns undefined | Product
+ */
 export default function factoryProduct(product: apiProduct): Product | undefined{
   if (!product) return undefined;
   return {

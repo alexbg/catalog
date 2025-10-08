@@ -3,23 +3,25 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  useLoaderData,
   useNavigation,
+  Links
 } from "react-router";
 
 import type { Route } from "./+types/root";
 import './styles/index.sass';
-import { QueryClientProvider, HydrationBoundary } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./queryClient";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const navigation = useNavigation();
+  // It Check if the user is navigation.
   const isPending = navigation.state !== "idle";
   return (
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <Links />
       </head>
       <body>
         {isPending && <HydrateFallback />}
@@ -34,7 +36,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  const loaderData = useLoaderData();
   return (
   <QueryClientProvider client={queryClient}>
     <Outlet />
@@ -42,6 +43,9 @@ export default function App() {
   )
 }
 
+// This is the loading that is showed everytime the user navigate to another webpage
+// I did and use this to do it faster, but it would be better to use something 
+// that is not in the middle of the web page
 export function HydrateFallback() {
   return (
     <section
